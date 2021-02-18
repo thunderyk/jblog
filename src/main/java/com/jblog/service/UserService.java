@@ -10,12 +10,17 @@ import com.jblog.vo.UserVo;
 public class UserService {
 
 	@Autowired
-	UserDao userDao;
+	private UserDao userDao;
 	
 	public void join(UserVo userVo) {
 		
 		userDao.join(userVo);
 		
+	}
+
+	public UserVo login(UserVo userVo) {
+		
+		return userDao.login(userVo);
 	}
 
 }

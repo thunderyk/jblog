@@ -13,7 +13,7 @@
 		
 		<!-- 메인해더 -->
 		<c:import url="/WEB-INF/views/includes/main-header.jsp"></c:import>
-		
+		<br>
 		<h1>잘못된 접근입니다.</h1>
 
 	</div>

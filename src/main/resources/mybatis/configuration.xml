@@ -4,9 +4,11 @@
 <configuration>
     <typeAliases>
     	<typeAlias alias="UserVo" type="com.jblog.vo.UserVo" />
+    	<typeAlias alias="BlogVo" type="com.jblog.vo.BlogVo" />
     </typeAliases>
 
     <mappers>
         <mapper resource="mybatis/mappers/user.xml"/>
+        <mapper resource="mybatis/mappers/blog.xml"/>
     </mappers>
 </configuration>
