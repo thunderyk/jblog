@@ -37,7 +37,7 @@
 						<strong>카테고리</strong>
 					</div>
 					<ul id="cateList" class="text-left">
-						<c:forEach items="${requestScope.categoryList}" var="vo">
+						<c:forEach items="${requestScope.map.categoryList}" var="vo">
 							<li><a href="${pageContext.request.contextPath}/${sessionScope.blogVo.id}?cateNo=${vo.cateNo}">${vo.cateName}</a></li>
 						</c:forEach>
 					</ul>
@@ -46,7 +46,7 @@
 			<!-- profilecate_area -->
 			<div id="post_area">
 				<c:choose>
-					<c:when test="${requestScope.postVo == null}">
+					<c:when test="${requestScope.map.postVo == null}">
 						<div id="postBox" class="clearfix">
 								<div id="postTitle" class="text-left"><strong>등록된 글이 없습니다.</strong></div>
 								<div id="postDate" class="text-left"><strong></strong></div>
@@ -58,13 +58,13 @@
 					</c:when>
 					<c:otherwise>
 						<div id="postBox" class="clearfix">
-							<div id="postTitle" class="text-left"><strong>${requestScope.postVo.postTitle}</strong></div>
-							<div id="postDate" class="text-left"><strong>${requestScope.postVo.regDate}</strong></div>
+							<div id="postTitle" class="text-left"><strong>${requestScope.map.postVo.postTitle}</strong></div>
+							<div id="postDate" class="text-left"><strong>${requestScope.map.postVo.regDate}</strong></div>
 							<div id="postNick">${sessionScope.blogVo.userName}(${sessionScope.blogVo.id})님</div>
 						</div>
 						
 						<div id="post" >
-							${requestScope.postVo.postContent}
+							${requestScope.map.postVo.postContent}
 						</div>
 					</c:otherwise>
 				</c:choose>		
@@ -77,7 +77,7 @@
 							<col style="width: 20%;">
 						</colgroup>
 						
-						<c:forEach items="${requestScope.postList}" var="vo">
+						<c:forEach items="${requestScope.map.postList}" var="vo">
 							<tr>
 							<td class="text-left"><a href="${pageContext.request.contextPath}/${sessionScope.blogVo.id}?postNo=${vo.postNo}">${vo.postTitle}</a></td>
 							<td class="text-right">${vo.regDate}</td>

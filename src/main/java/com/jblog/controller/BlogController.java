@@ -1,6 +1,7 @@
 package com.jblog.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -39,28 +40,8 @@ public class BlogController {
 		if(blogVo != null) {
 			session.setAttribute("blogVo",blogVo);
 			
-			List<CategoryVo> categoryList = blogService.getCategory(blogVo.getId());
-			model.addAttribute("categoryList", categoryList);
-			
-			List<PostVo> postList;
-			if(cateNo == 0) {
-				postList = blogService.getPostList(categoryList.get(0).getCateNo());
-			}else {
-				postList = blogService.getPostList(cateNo);
-			}
-			
-			PostVo postVo = null;
-			if(postNo == 0) {
-				if(postList.size()>0) {
-					postVo = blogService.getPost(postList.get(0).getPostNo());
-				}
-			}else {
-				postVo = blogService.getPost(postNo);
-			}
-			
-			
-			model.addAttribute("postList", postList);
-			model.addAttribute("postVo", postVo);
+			Map<String,Object> map = blogService.goBlog(blogVo,cateNo,postNo);
+			model.addAttribute("map", map);
 			
 			return "blog/blog-main";
 			

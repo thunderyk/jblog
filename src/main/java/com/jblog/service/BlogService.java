@@ -3,7 +3,9 @@ package com.jblog.service;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,22 +27,37 @@ public class BlogService {
 		
 		return blogDao.getBlogData(id);
 	}
-
+	
+	public Map<String,Object> goBlog(BlogVo blogVo, int cateNo, int postNo) {
+		List<CategoryVo> categoryList = blogDao.getCategory(blogVo.getId());
+		
+		List<PostVo> postList;
+		if(cateNo == 0) {
+			postList = blogDao.getPostList(categoryList.get(0).getCateNo());
+		}else {
+			postList = blogDao.getPostList(cateNo);
+		}
+		
+		PostVo postVo = null;
+		if(postNo == 0) {
+			if(postList.size()>0) {
+				postVo = blogDao.getPost(postList.get(0).getPostNo());
+			}
+		}else {
+			postVo = blogDao.getPost(postNo);
+		}
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("categoryList", categoryList);
+		map.put("postList", postList);
+		map.put("postVo", postVo);
+		
+		return map;
+	}
+	
 	public List<CategoryVo> getCategory(String id) {
 		
 		return blogDao.getCategory(id);
 	}
-
-	public List<PostVo> getPostList(int cateNo) {
-		
-		return blogDao.getPostList(cateNo);
-	}
-
-	public PostVo getPost(int postNo) {
-		
-		return blogDao.getPost(postNo);
-	}
-
 	public void changeBlogData(BlogVo blogVo, MultipartFile file) {
 		
 		if(!file.isEmpty()) {
