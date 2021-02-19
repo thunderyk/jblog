@@ -61,5 +61,10 @@ public class BlogDao {
 		sqlSession.delete("blog.deleteCate",cateNo);
 		
 	}
+
+	public void writePost(PostVo postVo) {
+		sqlSession.insert("blog.insertPost",postVo);
+		
+	}
 	
 }

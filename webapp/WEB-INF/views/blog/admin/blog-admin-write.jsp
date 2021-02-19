@@ -21,7 +21,7 @@
 			<!-- //admin-menu -->
 			
 			<div id="admin-content">
-				<form action="" method="">
+				<form action="${pageContext.request.contextPath}/${sessionScope.authMember.id}/admin/write" method="post">
 			      	<table id="admin-write">
 			      		<colgroup>
 							<col style="width: 100px;">
@@ -36,9 +36,9 @@
 				      		<td>
 				      			<select name="cateNo">
 				      				<!-- 카테고리 리스트 영역 -->
-				      				<option value="">자바프로그래밍</option>
-				      				<option value="">오라클</option>
-				      				<!-- 카테고리 리스트 영역 -->
+				      				<c:forEach items="${requestScope.categoryList}" var="vo">
+				      					<option value="${vo.cateNo}">${vo.cateName}</option>
+				      				</c:forEach>
 				      			</select>
 				      		</td>
 			      		</tr>

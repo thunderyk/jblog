@@ -31,13 +31,14 @@
 					
 					<div id="nick">${sessionScope.blogVo.userName}(${sessionScope.blogVo.id})님</div>
 				</div>
+				
 				<div id="cate">
 					<div class="text-left">
 						<strong>카테고리</strong>
 					</div>
 					<ul id="cateList" class="text-left">
 						<c:forEach items="${requestScope.categoryList}" var="vo">
-							<li><a href="$}">${vo.cateName}</a></li>
+							<li><a href="${pageContext.request.contextPath}/${sessionScope.blogVo.id}?cateNo=${vo.cateNo}">${vo.cateName}</a></li>
 						</c:forEach>
 					</ul>
 				</div>
@@ -78,7 +79,7 @@
 						
 						<c:forEach items="${requestScope.postList}" var="vo">
 							<tr>
-							<td class="text-left"><a href="">${vo.postTitle}</a></td>
+							<td class="text-left"><a href="${pageContext.request.contextPath}/${sessionScope.blogVo.id}?postNo=${vo.postNo}">${vo.postTitle}</a></td>
 							<td class="text-right">${vo.regDate}</td>
 						</tr>									
 						</c:forEach>

@@ -123,12 +123,24 @@ public class BlogController {
 		
 	}
 	
-	
-	
-	@RequestMapping("/{userId}/admin/write")
-	public String blogAdminWrite() {
+	@RequestMapping("/{userId}/admin/writeForm")
+	public String blogAdminWriteForm(HttpSession session,Model model) {
+		
+		UserVo userVo = (UserVo)session.getAttribute("authMember");
+		
+		List<CategoryVo> categoryList = blogService.getCategory(userVo.getId());
+		model.addAttribute("categoryList",categoryList);
 		
 		return "/blog/admin/blog-admin-write";
+		
+	}
+	
+	@RequestMapping("/{userId}/admin/write")
+	public String blogAdminWrite(PostVo postVo) {
+		
+		blogService.writePost(postVo);
+		
+		return "redirect:./writeForm";
 		
 	}
 }

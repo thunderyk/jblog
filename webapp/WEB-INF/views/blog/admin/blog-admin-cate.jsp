@@ -161,6 +161,8 @@ $("#btnAddCate").on("click",function(){
 		dataType : "json",
 		success : function(cateVo){
 			render(cateVo,"up")
+			$("#inputCateName").val("");
+			$("#inputCateDesc").val("");
 		},
 		error : function(XHR, status, error){
 			console.error(status + " : " + error);

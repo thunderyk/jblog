@@ -90,4 +90,9 @@ public class BlogService {
 		blogDao.deleteCate(cateNo);
 		
 	}
+
+	public void writePost(PostVo postVo) {
+		blogDao.writePost(postVo);
+		
+	}
 }
