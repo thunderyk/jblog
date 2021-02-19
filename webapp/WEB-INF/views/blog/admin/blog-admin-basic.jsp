@@ -24,7 +24,7 @@
 			<!-- //admin-menu -->
 			
 			<div id="admin-content">
-				<form action="${pageContext.request.contextPath}/${sessionScope.blogVo.id}/admin/basic/change" method="post" enctype="multipart/form-data">
+				<form action="${pageContext.request.contextPath}/${sessionScope.authMember.id}/admin/basic/change" method="post" enctype="multipart/form-data">
 	 		      	<table id="admin-basic">
 	 		      		<colgroup>
 							<col style="width: 100px;">
@@ -37,7 +37,7 @@
 			      		<tr>
 			      			<td><label>로고이미지</label></td>
 			      			<c:choose>
-			      				<c:when test="${requestScope.blogVo.logoFile == null}">
+			      				<c:when test="${sessionScope.blogVo.logoFile == null}">
 			      					<td class="text-left"><img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg"></td>
 			      				</c:when>
 			      				
@@ -54,7 +54,7 @@
 			      	<div id="btnArea">
 			      		<button class="btn_l" type="submit" >기본설정변경</button>
 			      	</div>
-			      	<input type="hidden" value="${sessionScope.blogVo.id}">
+			      	<input type="hidden" name="id" value="${sessionScope.authMember.id}">
 				</form>
 			
 			</div>

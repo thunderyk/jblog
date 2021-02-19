@@ -6,8 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>JBlog</title>
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
 
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.12.4.js"></script>
 
 </head>
 
@@ -40,30 +42,15 @@
 			      			<th>삭제</th>      			
 			      		</tr>
 		      		</thead>
+		      		
 		      		<tbody id="cateList">
 		      			<!-- 리스트 영역 -->
-		      			<tr>
-							<td>1</td>
-							<td>자바프로그래밍</td>
-							<td>7</td>
-							<td>자바기초와 객체지향</td>
-						    <td class='text-center'>
-						    	<img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg">
-						    </td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>오라클</td>
-							<td>5</td>
-							<td>오라클 설치와 sql문</td>
-						    <td class='text-center'>
-						    	<img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg">
-						    </td>
-						</tr>
+		      			
+							
 						<!-- 리스트 영역 -->
 					</tbody>
 				</table>
-      	
+      			
 		      	<table id="admin-cate-add" >
 		      		<colgroup>
 						<col style="width: 100px;">
@@ -71,11 +58,11 @@
 					</colgroup>
 		      		<tr>
 		      			<td class="t">카테고리명</td>
-		      			<td><input type="text" name="name" value=""></td>
+		      			<td><input type="text" name="name" id="inputCateName" value=""></td>
 		      		</tr>
 		      		<tr>
 		      			<td class="t">설명</td>
-		      			<td><input type="text" name="desc"></td>
+		      			<td><input type="text" name="desc" id="inputCateDesc"></td>
 		      		</tr>
 		      	</table> 
 			
@@ -97,7 +84,92 @@
 	<!-- //wrap -->
 </body>
 
+<script type="text/javascript">
 
+$("document").ready(function(){
+	
+	fetchList();
+});
+
+function fetchList(){
+	$.ajax({
+		url : "${pageContext.request.contextPath}/${sessionScope.authMember.id}/admin/cate/list",
+		type : "post",
+		dataType : "json",
+		success : function(categoryList){
+			
+			for(var i=0;i<categoryList.length;i++){
+				render(categoryList[i],"down");
+			}
+			
+		},
+		error : function(XHR, status, error){
+			console.error(status + " : " + error);
+		}
+	});
+}
+
+function render(cateVo,upDown){
+	var str ='';
+	
+	str+='<tr id="tr'+cateVo.cateNo+'">';
+	str+='	<td>'+cateVo.cateNo+'</td>';
+	str+='	<td>'+cateVo.cateName+'</td>';
+	str+='	<td>'+cateVo.postCount+'</td>';
+	str+='	<td>'+cateVo.description+'</td>';
+	str+='	<td class="text-center">';
+	str+='		<img data-cateno='+cateVo.cateNo+' class="btnCateDel" id="deleteCateBtn'+cateVo.cateNo+'" src="${pageContext.request.contextPath}/assets/images/delete.jpg">';
+	str+='	</td>';
+	str+='</tr>';
+	
+	if(upDown == "down"){
+		$("#cateList").append(str);	
+	}else if(upDown = "up"){
+		$("#cateList").prepend(str);
+	}
+}
+
+$("#cateList").on("click","img",function(){
+	
+	var cateNo = $(this).data("cateno");
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/${sessionScope.authMember.id}/admin/cate/delete",
+		type : "post",
+		data: {"cateNo": cateNo},
+		success : function(cateNo){
+			$("#tr"+cateNo).remove();
+		},
+		error : function(XHR, status, error){
+			console.error(status + " : " + error);
+		}
+	});
+});
+
+$("#btnAddCate").on("click",function(){
+	
+	var cateVo= {
+		description: $("#inputCateDesc").val(),
+		cateName: $("#inputCateName").val(),
+		id: "${sessionScope.authMember.id}"
+	}
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/${sessionScope.authMember.id}/admin/cate/add",
+		type : "post",
+		data: cateVo,
+		dataType : "json",
+		success : function(cateVo){
+			render(cateVo,"up")
+		},
+		error : function(XHR, status, error){
+			console.error(status + " : " + error);
+		}
+	});
+	
+});
+
+</script>
 
 
 </html>

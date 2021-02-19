@@ -39,7 +39,7 @@
 	</select>
 	
 	<select id="getPost" resultType="PostVo" parameterType="int">
-		<![CDATA[
+	<![CDATA[
 		select postNo,
 			   postTitle,
 			   postContent,
@@ -48,5 +48,53 @@
 		where postNo = #{postNo}
 	]]>
 	</select>
+	
+	<update id="changeBlogData" parameterType="BlogVo">
+	<![CDATA[
+		update blog set blogTitle = #{blogTitle}
+	]]>
+	<if test="logoFile != null">
+					,
+					logoFile = #{logoFile}
+	</if>
+	<![CDATA[
+		where id = #{id}	
+	]]>
+	</update>
+	
+	<insert id="addCate" parameterType="CategoryVo">
+	<selectKey keyProperty="cateNo" resultType="int" order="BEFORE">	
+		select seq_category_no.nextval from dual
+	</selectKey>
+	<![CDATA[
+		insert into category
+            		values(#{cateNo},
+				   		   #{id},
+				   		   #{cateName},
+				   		   #{description},
+				   		   sysdate)	
+	]]>
+	</insert>
+	
+	<select id="getCateOne" resultType="CategoryVo" parameterType="int">
+	<![CDATA[
+		select cateName,
+       		   cateNo,
+	  		   description,
+       		   postCount
+		from category,(select count(*) postCount 
+               				  from post p 
+               				  where cateNo = #{cateNo})postData
+		where cateNo = #{cateNo}
+		order by cateNo desc
+		
+	]]>
+	</select>
+	
+	<delete id="deleteCate" parameterType="int">
+	<![CDATA[
+		delete from category where cateNo = #{cateNo}		
+	]]>
+	</delete>
 	
 </mapper>

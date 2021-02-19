@@ -43,27 +43,51 @@ public class BlogService {
 
 	public void changeBlogData(BlogVo blogVo, MultipartFile file) {
 		
-		String saveDir = "D:\\jblog\\FileUp";
-		
-		String exName = file.getName().substring(file.getName().lastIndexOf("."));
-		
-		String logoFile = System.currentTimeMillis()+UUID.randomUUID().toString()+exName;
-		
-		
-		String filePath = saveDir+"\\"+logoFile;
-		
-		try {
-			byte[]fileData = file.getBytes();
-			OutputStream out = new FileOutputStream(filePath);
-			BufferedOutputStream bos = new BufferedOutputStream(out);
-			bos.write(fileData);
-			bos.close();
+		if(!file.isEmpty()) {
+			String saveDir = "D:\\jblog\\FileUp";
 			
-		}catch(Exception e) {
-			System.out.println("FileUpService restore Error: "+e);
+			String exName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+			
+			String logoFile = System.currentTimeMillis()+UUID.randomUUID().toString()+exName;
+			
+			String filePath = saveDir+"\\"+logoFile;
+			
+			try {
+				byte[]fileData = file.getBytes();
+				OutputStream out = new FileOutputStream(filePath);
+				BufferedOutputStream bos = new BufferedOutputStream(out);
+				bos.write(fileData);
+				bos.close();
+				
+			}catch(Exception e) {
+				System.out.println("FileUpService restore Error: "+e);
+			}
+			
+			blogVo.setLogoFile(logoFile);
+		}
+		blogDao.changeBlogData(blogVo);
+	}
+
+	public List<CategoryVo> getCateWithPost(String id) {
+		
+		List<CategoryVo> cateList =  blogDao.getCateWithPost(id);
+		
+		for (int i=0;i<cateList.size();i++) {
+			cateList.set(i,blogDao.selectOneCate(cateList.get(i).getCateNo()));	
 		}
 		
-		blogVo.setLogoFile(logoFile);
-		blogDao.changeBlogData(blogVo);
+		
+		return cateList;
+	}
+
+	public CategoryVo addCate(CategoryVo cateVo) {
+		
+		blogDao.addCate(cateVo);
+		return blogDao.selectOneCate(cateVo.getCateNo());
+	}
+
+	public void deleteCate(int cateNo) {
+		blogDao.deleteCate(cateNo);
+		
 	}
 }

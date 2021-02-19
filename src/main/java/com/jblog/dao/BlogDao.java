@@ -22,7 +22,7 @@ public class BlogDao {
 	}
 
 	public List<CategoryVo> getCategory(String id) {
-		
+				
 		return sqlSession.selectList("blog.getCategory",id);
 	}
 
@@ -37,7 +37,28 @@ public class BlogDao {
 	}
 
 	public void changeBlogData(BlogVo blogVo) {
-		sqlSession.update("blog.changeBlogData");
+		sqlSession.update("blog.changeBlogData", blogVo);
+		
+	}
+
+	public List<CategoryVo> getCateWithPost(String id) {
+		
+		return sqlSession.selectList("blog.getCategory",id);
+	}
+
+	public void addCate(CategoryVo cateVo) {
+		
+		sqlSession.insert("blog.addCate",cateVo);
+		
+	}
+
+	public CategoryVo selectOneCate(int cateNo) {
+		
+		return sqlSession.selectOne("blog.getCateOne",cateNo);
+	}
+
+	public void deleteCate(int cateNo) {
+		sqlSession.delete("blog.deleteCate",cateNo);
 		
 	}
 	
