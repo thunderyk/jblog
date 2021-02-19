@@ -3,6 +3,7 @@ package com.jblog.vo;
 public class BlogVo {
 
 	private String id;
+	private String userName;
 	private String blogTitle;
 	private String logoFile;
 	
@@ -24,11 +25,17 @@ public class BlogVo {
 	public void setLogoFile(String logoFile) {
 		this.logoFile = logoFile;
 	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	
 	@Override
 	public String toString() {
-		return "BlogVo [id=" + id + ", blogTitle=" + blogTitle + ", logoFile=" + logoFile + "]";
+		return "BlogVo [id=" + id + ", userName=" + userName + ", blogTitle=" + blogTitle + ", logoFile=" + logoFile
+				+ "]";
 	}
-	
 	
 }

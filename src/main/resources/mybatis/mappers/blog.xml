@@ -6,7 +6,47 @@
 	<!-- 쿼리문 작성 -->
 	<select id="getBlogData" resultType="BlogVo" parameterType="string">
 	<![CDATA[
-		select * from blog where id = #{id}
+		select b.id,
+			   blogTitle,
+			   logoFile,
+			   userName 
+		from blog b, users u 
+		where b.id = #{id}
+		and b.id = u.id
 	]]>
 	</select>
+	
+	<select id="getCategory" resultType="CategoryVo" parameterType="string">
+	<![CDATA[
+		select cateName,
+		       cateNo 
+		from category 
+		where id = #{id}
+		order by cateNo desc
+		
+	]]>
+	</select>
+	
+	<select id="getPostList" resultType="PostVo" parameterType="int">
+	<![CDATA[
+		select postNo,
+			   postTitle,
+			   TO_CHAR(regDate,'YYYY/MM/DD') regDate 
+		from post 
+		where cateNo = #{cateNo}
+		order by postNo desc
+	]]>
+	</select>
+	
+	<select id="getPost" resultType="PostVo" parameterType="int">
+		<![CDATA[
+		select postNo,
+			   postTitle,
+			   postContent,
+			   TO_CHAR(regDate,'YYYY/MM/DD') regDate 
+		from post 
+		where postNo = #{postNo}
+	]]>
+	</select>
+	
 </mapper>

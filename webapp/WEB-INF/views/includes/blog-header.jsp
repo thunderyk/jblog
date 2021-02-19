@@ -14,7 +14,7 @@
 					<c:otherwise>
 						<li><a class="btn_s" href="${pageContext.request.contextPath}/usr/logout">로그아웃</a></li>
 						<c:if test="${sessionScope.authMember.id == sessionScope.blogVo.id}">
-							<li><a class="btn_s" href="${pageContext.request.contextPath}/${sessionScope.authMember.id}/blog-admin-basic">내블로그 관리</a></li>
+							<li><a class="btn_s" href="${pageContext.request.contextPath}/${sessionScope.authMember.id}/admin/basic">내블로그 관리</a></li>
 						</c:if>
 					</c:otherwise>
 				</c:choose>
