@@ -32,6 +32,7 @@ public class BlogController {
 	public String goBlog(@PathVariable("userId") String id,
 						 @RequestParam(name="cateNo", required=false, defaultValue="0") int cateNo,
 						 @RequestParam(name="postNo", required=false, defaultValue="0") int postNo,
+						 @RequestParam(name="crtPageOfPost", required=false, defaultValue="1") int crtPageOfPost,
 						 HttpSession session,
 						 Model model) {
 		
@@ -40,7 +41,7 @@ public class BlogController {
 		if(blogVo != null) {
 			session.setAttribute("blogVo",blogVo);
 			
-			Map<String,Object> map = blogService.goBlog(blogVo,cateNo,postNo);
+			Map<String,Object> map = blogService.goBlog(blogVo,cateNo,postNo,crtPageOfPost);
 			model.addAttribute("map", map);
 			
 			return "blog/blog-main";

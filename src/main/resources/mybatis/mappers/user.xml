@@ -45,4 +45,12 @@
 	]]>
 	</select>
 	
+	<select id="checkId" resultType="UserVo">
+	<![CDATA[
+		select *
+		from users
+		where id = #{id}
+	]]>
+	</select>
+	
 </mapper>

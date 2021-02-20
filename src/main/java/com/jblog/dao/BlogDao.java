@@ -1,6 +1,8 @@
 package com.jblog.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +28,14 @@ public class BlogDao {
 		return sqlSession.selectList("blog.getCategory",id);
 	}
 
-	public List<PostVo> getPostList(int cateNo) {
+	public List<PostVo> getPostList(int cateNo,int begin, int end) {
 		
-		return sqlSession.selectList("blog.getPostList",cateNo);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("cateNo", cateNo);
+		map.put("begin", begin);
+		map.put("end",end);
+		
+		return sqlSession.selectList("blog.getPostList",map);
 	}
 
 	public PostVo getPost(int postNo) {
@@ -64,6 +71,11 @@ public class BlogDao {
 
 	public void writePost(PostVo postVo) {
 		sqlSession.insert("blog.insertPost",postVo);
+		
+	}
+
+	public int getTotalCountOfPost(int cateNo) {
+		return sqlSession.selectOne("blog.totalPostCount",cateNo);
 		
 	}
 	

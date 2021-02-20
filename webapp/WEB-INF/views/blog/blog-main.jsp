@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>JBlog</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css?after">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.12.4.js"></script>
 </head>
 
@@ -84,6 +84,23 @@
 						</tr>									
 						</c:forEach>
 					</table>
+					
+					<div id="paging">
+						<ul>
+							<c:if test="${map.prev == true }">
+								<li><a href="${pageContext.request.contextPath}/${sessionScope.blogVo.id}?crtPageOfPost=${map.startPageBtnNo-1}">◀</a></li>
+							</c:if>
+							
+							<c:forEach begin="${map.startPageBtnNo}" end = "${map.endPageBtnNo}" step="1" var="page">
+								<li><a href="${pageContext.request.contextPath}/${sessionScope.blogVo.id}?crtPageOfPost=${page}">${page}</a>
+							</c:forEach>
+							
+							<c:if test="${map.next == true }">
+								<li><a href="${pageContext.request.contextPath}/${sessionScope.blogVo.id}?crtPageOfPost=${map.endPageBtnNo+1}">▶</a></li>
+							</c:if>
+						</ul>
+					</div>
+					
 				</div>
 				<!-- //list -->
 			</div>

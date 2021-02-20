@@ -214,3 +214,23 @@ div#footer		{ color:#666 }
 #admin-content #admin-write select[name='cateNo'] {width: 150px; height: 35px; }
 #admin-content #admin-write textarea {width: 600px; height: 300px;}
 
+/*blog main post paging*/
+#list #paging {
+	margin: 0px auto;
+	width: 310px;
+}
+
+#list #paging ul {margin: 10px 5px 10px 5px;}
+#list #paging ul>li{
+	float: left;
+	margin: 0px 8px 0px 8px;
+}
+
+#list #paging ul>li{
+	font-size: 16px;
+}
+#list #paging ul>li .active{
+	font-size: 16px;
+	font-weight: bold;
+	color: red;
+}

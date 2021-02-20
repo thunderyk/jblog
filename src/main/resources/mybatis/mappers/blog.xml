@@ -27,14 +27,23 @@
 	]]>
 	</select>
 	
-	<select id="getPostList" resultType="PostVo" parameterType="int">
+	<select id="getPostList" resultType="PostVo" parameterType="map">
 	<![CDATA[
-		select postNo,
-			   postTitle,
-			   TO_CHAR(regDate,'YYYY/MM/DD') regDate 
-		from post 
-		where cateNo = #{cateNo}
-		order by postNo desc
+		select orderdata.rn,
+			   orderdata.postNo, 
+			   orderdata.postTitle, 
+			   orderdata.regDate
+		from (select rownum rn, 
+					 data.postNo,
+                     data.postTitle,
+					 data.regDate
+			  from (select postNo,
+                           postTitle,
+			  			   TO_CHAR(regDate,'YYYY/MM/DD') regDate
+			  		from post
+			  		where cateNo = #{cateNo}
+                    order by postNo desc) data) orderdata
+		where rn>= #{begin} and rn <= #{end}
 	]]>
 	</select>
 	
@@ -107,5 +116,11 @@
 				   		   sysdate)		
 	]]>
 	</insert>
+	
+	<select id="totalPostCount" resultType="int">
+	<![CDATA[
+		select count(*) from post where cateNo = #{cateNo}
+	]]>
+	</select>
 	
 </mapper>

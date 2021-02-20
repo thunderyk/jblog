@@ -28,14 +28,28 @@ public class BlogService {
 		return blogDao.getBlogData(id);
 	}
 	
-	public Map<String,Object> goBlog(BlogVo blogVo, int cateNo, int postNo) {
+	public Map<String,Object> goBlog(BlogVo blogVo, int cateNo, int postNo, int crtPageOfPost) {
 		List<CategoryVo> categoryList = blogDao.getCategory(blogVo.getId());
 		
 		List<PostVo> postList;
+		
+		int listCnt = 5;
+		
+		crtPageOfPost = (crtPageOfPost > 0) ? crtPageOfPost : (crtPageOfPost = 1);
+		
+		int begin= listCnt*(crtPageOfPost-1)+1; //해당 페이지의 첫번 째 데이터를 가져오기 위해서 2페이지의 경우 11번부터
+		int end=  (listCnt*crtPageOfPost); //해당 페이지의 마자막(10번째) 데이터를 가져오기 위해서 2페이지의 경우 20번
+		
+		int pageBtnCount = 5;
+		int totalCount;
+		
+		
 		if(cateNo == 0) {
-			postList = blogDao.getPostList(categoryList.get(0).getCateNo());
+			postList = blogDao.getPostList(categoryList.get(0).getCateNo(),begin,end);
+			totalCount = blogDao.getTotalCountOfPost(categoryList.get(0).getCateNo());
 		}else {
-			postList = blogDao.getPostList(cateNo);
+			postList = blogDao.getPostList(cateNo,begin,end);
+			totalCount = blogDao.getTotalCountOfPost(cateNo);
 		}
 		
 		PostVo postVo = null;
@@ -50,6 +64,31 @@ public class BlogService {
 		map.put("categoryList", categoryList);
 		map.put("postList", postList);
 		map.put("postVo", postVo);
+		
+		int endPageBtnNo = (int)Math.ceil(crtPageOfPost/(double)pageBtnCount)*pageBtnCount;
+		int startPageBtnNo = endPageBtnNo - (pageBtnCount - 1);
+		
+		boolean next;
+		
+		if(endPageBtnNo * listCnt < totalCount) {
+			next = true;
+		}else {
+			next = false;
+			endPageBtnNo = (int)Math.ceil(totalCount/(double)listCnt);
+		}
+		
+		boolean prev;
+		
+		if(startPageBtnNo != 1) {
+			prev = true;
+		}else {
+			prev = false;
+		}
+		
+		map.put("prev", prev);
+		map.put("startPageBtnNo", startPageBtnNo);
+		map.put("endPageBtnNo", endPageBtnNo);
+		map.put("next", next);
 		
 		return map;
 	}

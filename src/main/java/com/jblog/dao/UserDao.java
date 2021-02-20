@@ -36,7 +36,13 @@ public class UserDao {
 
 	public UserVo login(UserVo userVo) {
 		
-		return sqlSession.selectOne("login", userVo);
+		return sqlSession.selectOne("user.login", userVo);
+		
+	}
+
+	public UserVo checkId(String id) {
+		
+		return sqlSession.selectOne("user.checkId",id);
 		
 	}
 

@@ -1,5 +1,7 @@
 package com.jblog.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jblog.service.UserService;
 import com.jblog.vo.UserVo;
@@ -53,7 +57,7 @@ public class UserController {
 
 			session.setAttribute("authMember", authVo);
 			
-			return "redirect:../"+authVo.getUserName();
+			return "redirect:../"+authVo.getId();
 			
 		}else {
 			//로그인 실패
@@ -67,4 +71,12 @@ public class UserController {
 			
 		return "redirect:../";
 	}
+
+	@RequestMapping("checkId")
+	@ResponseBody
+	public Map<String,String> checkId(@RequestParam("id") String id	) {
+		
+		return userService.checkId(id);
+	}
+
 }
