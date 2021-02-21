@@ -70,8 +70,11 @@
 					</c:otherwise>
 				</c:choose>		
 				
-				<c:if test="${sessionScope.authMember != null }">
-					
+				
+				<!-- and를 사용해서 만들었는데 text로 둘다 true인 것을 확인했는데도 안되서 일단은 이중포문으로 -->
+				<!-- 로그인 안되면 댓글창이 안나오고 글이 없는 상태도 댓글창이 안나옴 -->
+				<c:if test="${sessionScope.authMember != null}">
+					<c:if test="${requestScope.map.postVo != null}">
 					<div id="commentDiv">
 						<span class="spComment">${sessionScope.authMember.userName}</span>
 						<input type="text" value="" id="txtComment">
@@ -92,9 +95,9 @@
 								
 			      			</tbody>
 						</table>
-						
 						<br>
 					</div>
+					</c:if>
 				</c:if>
 				
 				<div class="clear"></div>
@@ -238,7 +241,7 @@ function render(cmtVo,upDown){
 	}else if(upDown = "up"){
 		$("#comment-list").prepend(str);
 	}
-};
+}
 
 
 </script>

@@ -15,17 +15,20 @@ public class UserDao {
 	@Autowired 
 	private SqlSession sqlSession;
 	
-	public void join(UserVo userVo) {
-		sqlSession.insert("user.join",userVo);
-		
+	public void insertUser(UserVo userVo) {
+		sqlSession.insert("user.insertUser",userVo);
+	}
+	
+	public void makeBlog(UserVo userVo) {
 		Map<String,Object> blogMap = new HashMap<String,Object>();
-		
 		blogMap.put("id", userVo.getId());
 		blogMap.put("blogTitle", userVo.getUserName()+"의 블로그 입니다.");
 		blogMap.put("logoFile", "");
 		
 		sqlSession.insert("user.makeBlog",blogMap);
-		
+	}
+	
+	public void makeCategory(UserVo userVo) {
 		Map<String,Object> categoryMap = new HashMap<String,Object>();
 		categoryMap.put("id", userVo.getId());
 		categoryMap.put("cateName", "미분류");
@@ -33,7 +36,7 @@ public class UserDao {
 		
 		sqlSession.insert("user.makeCategory",categoryMap);
 	}
-
+	
 	public UserVo login(UserVo userVo) {
 		
 		return sqlSession.selectOne("user.login", userVo);

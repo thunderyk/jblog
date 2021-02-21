@@ -294,3 +294,7 @@ div#footer		{ color:#666 }
 #resultList{
 	margin: 50px 0px;
 }
+
+#commentsListArea table tr{
+	text-align: left;
+}

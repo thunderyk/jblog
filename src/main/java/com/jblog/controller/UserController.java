@@ -33,12 +33,6 @@ public class UserController {
 		
 		userService.join(userVo);
 		
-		return "redirect:./joinSuccess";
-	}
-	
-	@RequestMapping("joinSuccess")
-	public String joinSuccessForm() {
-		
 		return "user/joinSuccess";
 	}
 	

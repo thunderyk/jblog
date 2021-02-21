@@ -17,7 +17,9 @@ public class UserService {
 	
 	public void join(UserVo userVo) {
 		
-		userDao.join(userVo);
+		userDao.insertUser(userVo);
+		userDao.makeBlog(userVo);
+		userDao.makeCategory(userVo);
 		
 	}
 
