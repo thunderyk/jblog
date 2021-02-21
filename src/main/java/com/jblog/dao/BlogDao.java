@@ -99,5 +99,25 @@ public class BlogDao {
 		sqlSession.delete("blog.deleteComment",cmtNo);
 		
 	}
+
+	public List<BlogVo> searchBlog(String keyword, String kwdOpt, int begin, int end) {
+
+		Map<String,Object> map = new HashMap<>();
+		map.put("keyword", keyword);
+		map.put("kwdOpt", kwdOpt);
+		map.put("begin", begin);
+		map.put("end", end);
+		
+		return sqlSession.selectList("blog.getBlogList",map);
+	}
+
+	public int getTotalBlogCount(String keyword, String kwdOpt) {
+
+		Map<String,Object> map = new HashMap<>();
+		map.put("keyword", keyword);
+		map.put("kwdOpt", kwdOpt);
+		
+		return sqlSession.selectOne("blog.getTotlaBlog",map);
+	}
 	
 }

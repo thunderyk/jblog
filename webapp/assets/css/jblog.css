@@ -215,21 +215,21 @@ div#footer		{ color:#666 }
 #admin-content #admin-write textarea {width: 600px; height: 300px;}
 
 /*blog main post paging*/
-#list #paging {
+#paging {
 	margin: 0px auto;
 	width: 310px;
 }
 
-#list #paging ul {margin: 10px 5px 10px 5px;}
-#list #paging ul>li{
+#paging ul {margin: 10px 5px 10px 5px;}
+#paging ul>li{
 	float: left;
 	margin: 0px 8px 0px 8px;
 }
 
-#list #paging ul>li{
+#paging ul>li{
 	font-size: 16px;
 }
-#list #paging ul>li .active{
+#paging ul>li .active{
 	font-size: 16px;
 	font-weight: bold;
 	color: red;
@@ -276,4 +276,21 @@ div#footer		{ color:#666 }
 	font-size: 18px;
 	text-align: left;
 	border-spacing: 0px 4px;
+}
+
+#srhImg{
+	width: 120px;
+	height: 100px;	
+}
+
+#resultList table{
+	font-size: 25px;
+}
+
+#resultList td{
+	padding: 0px 10px;
+}
+
+#resultList{
+	margin: 50px 0px;
 }

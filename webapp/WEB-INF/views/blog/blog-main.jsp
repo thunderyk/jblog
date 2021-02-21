@@ -238,7 +238,7 @@ function render(cmtVo,upDown){
 	}else if(upDown = "up"){
 		$("#comment-list").prepend(str);
 	}
-}
+};
 
 
 </script>

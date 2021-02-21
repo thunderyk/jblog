@@ -171,4 +171,51 @@
 	]]>
 	</delete>
 	
+	<select id="getBlogList" resultType="BlogVo" parameterType="map">
+	<![CDATA[
+		select orderdata.rn,
+			   orderdata.logoFile, 
+			   orderdata.id, 
+			   orderdata.blogTitle,
+			   orderdata.userName,
+			   orderdata.joinDate
+		from (select rownum rn, 
+					 data.logoFile,
+                     data.id,
+					 data.blogTitle,
+					 data.userName,
+					 data.joinDate
+			  from (select b.logoFile,
+			  			   b.id,
+			  			   b.blogTitle,
+                           userName,
+                           TO_CHAR(joinDate,'YYYY/MM/DD') joinDate
+			  		from blog b, users u
+			  		where b.id = u.id
+	]]>
+					<if test='kwdOpt == "optTitle"'>
+						and blogTitle like '%'||#{keyword}||'%'
+					</if>
+					<if test='kwdOpt == "optName"'>
+						and userName like '%'||#{keyword}||'%'
+					</if>
+	<![CDATA[		  	
+                    ) data) orderdata
+		where rn>= #{begin} and rn <= #{end}
+	]]>
+	</select>
+	
+	<select id="getTotlaBlog" parameterType ="map" resultType ="int">
+	<![CDATA[
+		select count(*) from blog b, users u
+		where b.id = u.id
+	]]>
+	<if test='kwdOpt == "optTitle"'>
+		and blogTitle like '%'||#{keyword}||'%'
+	</if>
+	<if test='kwdOpt == "optName"'>
+		and userName like '%'||#{keyword}||'%'
+	</if>
+	</select>
+	
 </mapper>
