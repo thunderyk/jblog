@@ -234,3 +234,46 @@ div#footer		{ color:#666 }
 	font-weight: bold;
 	color: red;
 }
+
+/* blog main comment */
+#commentDiv{
+	width: 790px;
+	height: 38px; 
+	border: 1px solid #000000;
+	margin: 20px 0px 20px 0px;
+	float: left;
+}
+#commentDiv #txtComment{
+	height: 30px;
+	width: 634px;
+	margin: 2px auto;
+}
+#commentDiv .spComment{
+	width: 76px;
+	display: inline-block;
+	height: auto;
+	font-size: 18px;
+	vertical-align: middle;
+	text-align: left;
+}
+#commentDiv #btnComment{
+	border: 1px solid #808080; 
+	background-color: #DDDDDD; 
+	border-radius: 5px;
+	padding: 8px 15px 8px 15px;
+	font-size: 13px;
+	cursor: pointer;
+}
+
+#commentDiv #commentsList #comment{
+	width: 630px;
+	height: 38px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#commentsList table{
+	font-size: 18px;
+	text-align: left;
+	border-spacing: 0px 4px;
+}

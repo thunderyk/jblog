@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.jblog.vo.BlogVo;
 import com.jblog.vo.CategoryVo;
+import com.jblog.vo.CommentVo;
 import com.jblog.vo.PostVo;
 
 @Repository
@@ -76,6 +77,26 @@ public class BlogDao {
 
 	public int getTotalCountOfPost(int cateNo) {
 		return sqlSession.selectOne("blog.totalPostCount",cateNo);
+		
+	}
+
+	public void insertComment(CommentVo commentVo) {
+		sqlSession.insert("blog.insertComment",commentVo);
+		
+	}
+
+	public CommentVo selectComment(CommentVo commentVo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("blog.selectComment",commentVo.getCmtNo());
+	}
+
+	public List<CommentVo> getAllComment(int postNo) {
+		
+		return sqlSession.selectList("blog.getAllList",postNo);
+	}
+
+	public void deleteComment(int cmtNo) {
+		sqlSession.delete("blog.deleteComment",cmtNo);
 		
 	}
 	

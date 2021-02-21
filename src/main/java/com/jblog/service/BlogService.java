@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.jblog.dao.BlogDao;
 import com.jblog.vo.BlogVo;
 import com.jblog.vo.CategoryVo;
+import com.jblog.vo.CommentVo;
 import com.jblog.vo.PostVo;
 
 @Service
@@ -149,6 +150,21 @@ public class BlogService {
 
 	public void writePost(PostVo postVo) {
 		blogDao.writePost(postVo);
+	}
+
+	public CommentVo slinComment(CommentVo commentVo) {
+		blogDao.insertComment(commentVo);
+		return blogDao.selectComment(commentVo);
+	}
+
+	public List<CommentVo> getAllComment(int postNo) {
+
+		return blogDao.getAllComment(postNo);
+		
+	}
+
+	public void deleteComment(int cmtNo) {
+		blogDao.deleteComment(cmtNo);
 		
 	}
 }

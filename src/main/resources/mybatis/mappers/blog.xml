@@ -123,4 +123,52 @@
 	]]>
 	</select>
 	
+	<select id="selectComment" resultType="CommentVo" parameterType="int">
+	<![CDATA[
+		select cmtNo,
+			   postNo,
+			   c.userNo,
+			   cmtContent,
+			   TO_CHAR(regDate,'YYYY/MM/DD') regDate,
+			   userName
+		from comments c, users u where cmtNo = #{cmtNo} 
+		and c.userNo = u.userNo
+		order by cmtNo desc
+	]]>
+	</select>
+	
+	<insert id="insertComment" parameterType="CommentVo">
+	<selectKey keyProperty="cmtNo" resultType="int" order="BEFORE">	
+		select seq_comments_no.nextval from dual
+	</selectKey>
+	<![CDATA[
+		insert into comments
+            		values(#{cmtNo},
+				   		   #{postNo},
+				   		   #{userNo},
+				   		   #{cmtContent},
+				   		   sysdate)		
+	]]>
+	</insert>
+	
+	<select id="getAllList" resultType="CommentVo" parameterType="int">
+	<![CDATA[
+		select cmtNo,
+			   postNo,
+			   c.userNo,
+			   cmtContent,
+			   TO_CHAR(regDate,'YYYY/MM/DD') regDate,
+			   userName
+		from comments c, users u where postNo = #{postNo} 
+		and c.userNo = u.userNo
+		order by cmtNo desc
+	]]>
+	</select>
+	
+	<delete id="deleteComment" parameterType="int">
+	<![CDATA[
+		delete from comments where cmtNo = #{cmtNo}		
+	]]>
+	</delete>
+	
 </mapper>

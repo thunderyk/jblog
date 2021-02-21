@@ -168,7 +168,6 @@ $("#btnAddCate").on("click",function(){
 			console.error(status + " : " + error);
 		}
 	});
-	
 });
 
 </script>

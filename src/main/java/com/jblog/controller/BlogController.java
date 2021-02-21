@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.jblog.service.BlogService;
 import com.jblog.vo.BlogVo;
 import com.jblog.vo.CategoryVo;
+import com.jblog.vo.CommentVo;
 import com.jblog.vo.PostVo;
 import com.jblog.vo.UserVo;
 
@@ -124,5 +125,29 @@ public class BlogController {
 		
 		return "redirect:./writeForm";
 		
+	}
+	
+	@RequestMapping("/{userId}/comment")
+	@ResponseBody
+	public CommentVo writeComment(@ModelAttribute CommentVo commentVo) {
+		
+		return blogService.slinComment(commentVo);
+		
+	}
+	
+	@RequestMapping("/{userId}/list")
+	@ResponseBody
+	public List<CommentVo> commentList(@RequestParam(name="postNo", required=false, defaultValue="0") int postNo) {
+		
+		return blogService.getAllComment(postNo);
+		
+	}
+	
+	@RequestMapping("/{userId}/deleteComment")
+	@ResponseBody
+	public int deleteComment(@RequestParam(name="cmtNo", required=false, defaultValue="0") int cmtNo) {
+		
+		blogService.deleteComment(cmtNo);
+		return cmtNo;
 	}
 }

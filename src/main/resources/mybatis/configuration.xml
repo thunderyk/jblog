@@ -7,6 +7,7 @@
     	<typeAlias alias="BlogVo" type="com.jblog.vo.BlogVo" />
     	<typeAlias alias="CategoryVo" type="com.jblog.vo.CategoryVo" />
     	<typeAlias alias="PostVo" type="com.jblog.vo.PostVo" />
+    	<typeAlias alias="CommentVo" type="com.jblog.vo.CommentVo" />
     </typeAliases>
 
     <mappers>
