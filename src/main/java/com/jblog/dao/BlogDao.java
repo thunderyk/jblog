@@ -119,5 +119,10 @@ public class BlogDao {
 		
 		return sqlSession.selectOne("blog.getTotlaBlog",map);
 	}
+
+	public int postCountInCate(int cateNo) {
+		
+		return sqlSession.selectOne("blog.hasPost",cateNo);
+	}
 	
 }

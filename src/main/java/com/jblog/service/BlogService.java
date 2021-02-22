@@ -143,9 +143,20 @@ public class BlogService {
 		return blogDao.selectOneCate(cateVo.getCateNo());
 	}
 
-	public void deleteCate(int cateNo) {
-		blogDao.deleteCate(cateNo);
+	public Map<String,Object> deleteCate(int cateNo) {
+		int postCount = blogDao.postCountInCate(cateNo);
 		
+		Map<String,Object> deleteInf = new HashMap<String,Object>();
+		deleteInf.put("cateNo",cateNo);
+		
+		if(postCount==0) {
+			blogDao.deleteCate(cateNo);
+			deleteInf.put("isDeleted",true);
+			return deleteInf;
+		}else {
+			deleteInf.put("isDeleted",false);
+			return deleteInf;
+		}
 	}
 
 	public void writePost(PostVo postVo) {

@@ -218,4 +218,10 @@
 	</if>
 	</select>
 	
+	<select id="hasPost" parameterType ="int" resultType ="int">
+	<![CDATA[
+		select count(*) from post where cateNo = #{cateNo}
+	]]>
+	</select>
+	
 </mapper>

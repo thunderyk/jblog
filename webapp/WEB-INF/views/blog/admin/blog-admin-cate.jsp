@@ -137,8 +137,14 @@ $("#cateList").on("click","img",function(){
 		url : "${pageContext.request.contextPath}/${sessionScope.authMember.id}/admin/cate/delete",
 		type : "post",
 		data: {"cateNo": cateNo},
-		success : function(cateNo){
-			$("#tr"+cateNo).remove();
+		dataType: "json",
+		success : function(deleteInf){
+			if(deleteInf.isDeleted){
+				$("#tr"+cateNo).remove();
+			}else{
+				alert("삭제할 수 없습니다.");	
+			}
+			
 		},
 		error : function(XHR, status, error){
 			console.error(status + " : " + error);

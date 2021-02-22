@@ -99,10 +99,9 @@ public class BlogController {
 	
 	@RequestMapping("/{userId}/admin/cate/delete")
 	@ResponseBody
-	public int blogAdminCateDelete(@RequestParam("cateNo") int cateNo) {
-		blogService.deleteCate(cateNo);
+	public Map<String,Object> blogAdminCateDelete(@RequestParam("cateNo") int cateNo) {
 		
-		return cateNo;
+		return blogService.deleteCate(cateNo);
 		
 	}
 	
