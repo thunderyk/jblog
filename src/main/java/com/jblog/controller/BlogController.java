@@ -149,4 +149,11 @@ public class BlogController {
 		blogService.deleteComment(cmtNo);
 		return cmtNo;
 	}
+	
+	@RequestMapping("/{userId}/deletePost")
+	public String deletePost(@RequestParam(name="postNo", required=false, defaultValue="0") int postNo) {
+		blogService.deletePost(postNo);
+		
+		return "redirect:./";
+	}
 }

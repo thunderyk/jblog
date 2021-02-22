@@ -67,6 +67,14 @@
 						<div id="post" >
 							${requestScope.map.postVo.postContent}
 						</div>
+						<c:if test="${sessionScope.blogVo.id == sessionScope.authMember.id}">
+							<div id="deletePost">
+								<form action="${pageContext.request.contextPath}/${sessionScope.authMember.id}/deletePost?postNo=${requestScope.map.postVo.postNo}" method="post">
+									<button id="deletePostBtn" type="submit">글 삭제</button>
+								</form> 
+							</div>
+						</c:if>
+						
 					</c:otherwise>
 				</c:choose>		
 				
@@ -155,7 +163,7 @@
 <script type="text/javascript">
 
 $("document").ready(function(){
-	if(${sessionScope.authMember != null}){
+	if("${sessionScope.authMember != null}"){
 		fetchList();	
 	}
 });
@@ -231,7 +239,7 @@ function render(cmtVo,upDown){
 	str+='	<td>'+cmtVo.cmtContent+'</td>';
 	str+='	<td>'+cmtVo.regDate+'</td>';
 	
-	if(cmtVo.userNo == ${sessionScope.authMember.userNo}){
+	if(cmtVo.userNo == "${sessionScope.authMember.userNo}"){
 		str+='	<td><img data-cmtno='+cmtVo.cmtNo+' src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>';
 	}
 	str+='</tr>';

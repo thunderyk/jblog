@@ -124,5 +124,15 @@ public class BlogDao {
 		
 		return sqlSession.selectOne("blog.hasPost",cateNo);
 	}
+
+	public void deleteAllComment(int postNo) {
+		sqlSession.delete("blog.deleteAllComment",postNo);
+		
+	}
+
+	public void deletePost(int postNo) {
+		sqlSession.delete("blog.deletePost",postNo);
+		
+	}
 	
 }

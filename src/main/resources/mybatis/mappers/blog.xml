@@ -224,4 +224,16 @@
 	]]>
 	</select>
 	
+	<delete id="deleteAllComment" parameterType="int">
+	<![CDATA[
+		delete from comments where postNo = #{postNo}		
+	]]>
+	</delete>
+	
+	<delete id="deletePost" parameterType="int">
+	<![CDATA[
+		delete from post where postNo = #{postNo}		
+	]]>
+	</delete>
+	
 </mapper>

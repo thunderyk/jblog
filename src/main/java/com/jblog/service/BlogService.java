@@ -178,4 +178,10 @@ public class BlogService {
 		blogDao.deleteComment(cmtNo);
 		
 	}
+
+	public void deletePost(int postNo) {
+		
+		blogDao.deleteAllComment(postNo);
+		blogDao.deletePost(postNo);
+	}
 }
